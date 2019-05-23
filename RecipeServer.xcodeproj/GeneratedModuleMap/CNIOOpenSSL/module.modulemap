@@ -1,4 +1,4 @@
 module CNIOOpenSSL {
-    umbrella "/Users/sophieclark/GitHub/RecipeAPI/.build/checkouts/swift-nio-ssl/Sources/CNIOOpenSSL/include"
+    umbrella "/Users/sophieclark/GitHub/RecipeApp/RecipeServer/.build/checkouts/swift-nio-ssl/Sources/CNIOOpenSSL/include"
     export *
 }
