@@ -1,0 +1,4 @@
+module CCryptoOpenSSL {
+    umbrella "/Users/sophieclark/GitHub/RecipeApp/RecipeServer/.build/checkouts/crypto/Sources/CCryptoOpenSSL/include"
+    export *
+}
