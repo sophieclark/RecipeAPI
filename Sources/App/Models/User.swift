@@ -17,6 +17,22 @@ final class User: Codable {
     self.username = username
     self.password = password
   }
+  
+  final class Public: Codable {
+    var id: UUID?
+    var firstname: String
+    var surname: String
+    var emailAddress: String
+    var username: String
+    
+    init(id: UUID?, firstname: String, surname: String, emailAddress: String, username: String) {
+      self.id = id
+      self.firstname = firstname
+      self.surname = surname
+      self.emailAddress = emailAddress
+      self.username = username
+    }
+  }
 }
 
 extension User: PostgreSQLUUIDModel {}
@@ -45,6 +61,22 @@ extension User: BasicAuthenticatable {
 
 extension User: TokenAuthenticatable {
   typealias TokenType = Token
+}
+
+extension User.Public: Content {}
+
+extension User {
+  func convertToPublic() -> User.Public {
+    return User.Public(id: id, firstname: firstname, surname: surname, emailAddress: emailAddress, username: username)
+  }
+}
+
+extension Future where T: User {
+  func convertToPublic() -> Future<User.Public> {
+    return self.map(to: User.Public.self) { user in
+      return user.convertToPublic()
+    }
+  }
 }
 
 struct CreateDefaultUser: PostgreSQLMigration {

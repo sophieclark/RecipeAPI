@@ -19,7 +19,7 @@ extension Token: Migration {}
 extension Token: Content {}
 
 extension Token {
-  static func generate(for user: User, on req: Request) throws -> Token {
+  static func generate(for user: User) throws -> Token {
     let random = try CryptoRandom().generateData(count: 32)
       .base64EncodedString()
     return try Token(token: random, userID: user.requireID())
