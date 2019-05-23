@@ -7,6 +7,14 @@ final class Step: Codable {
   var number: Int
   var instructions: String
   var photo: Data?
+    
+  init(id: Int?, recipeID: Recipe.ID, number: Int, instructions: String, photo: Data?) {
+    self.id = id
+    self.recipeID = recipeID
+    self.number = number
+    self.instructions = instructions
+    self.photo = photo
+  }
 }
 
 extension Step: PostgreSQLModel {}
