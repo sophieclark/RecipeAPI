@@ -21,4 +21,7 @@ public func routes(_ router: Router) throws {
   
   let stepController = StepController()
   try router.register(collection: stepController)
+  
+  let ingredientController = IngredientController()
+  try router.register(collection: ingredientController)
 }
