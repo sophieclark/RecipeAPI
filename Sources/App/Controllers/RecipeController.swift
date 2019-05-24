@@ -7,6 +7,7 @@ struct RecipeController: RouteCollection {
   func boot(router: Router) throws {
     let recipesRoute = router.grouped("api", "recipes")
     recipesRoute.get(Recipe.parameter, use: getRecipeWithStepsAndIngredients)
+    recipesRoute.get("all", use: getAllRecipes)
     let basicAuthMiddleware = User.tokenAuthMiddleware()
     let authRecipeRouteGroup = recipesRoute.grouped(basicAuthMiddleware)
     authRecipeRouteGroup.post(CreateRecipe.self, use: createHandler)
@@ -27,6 +28,10 @@ struct RecipeController: RouteCollection {
         return RecipeWithStepsAndIngredients(userID: recipe.userID, name: recipe.name, photo: recipe.photo, steps: steps, ingredients: ingredients)
       }
     }
+  }
+  
+  func getAllRecipes(_ req: Request) throws -> Future<[Recipe]> {
+    return Recipe.query(on: req).all()
   }
   
   func deleteHandler(_ req: Request) throws -> Future<HTTPStatus> {
